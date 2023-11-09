@@ -35,14 +35,16 @@ sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAU
 grub-mkconfig -o /boot/grub/grub.cfg
 
 
-pacman --noconfirm -S networkmanager corectrl neovim firefox gimp keepassxc mpv \
+pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl neovim firefox gimp keepassxc mpv \
         btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer \
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar \
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
         man zsh ueberzug lf sxiv upower newsboat tmux fzf android-file-transfer \
         xorg xorg-xinit slock dmenu unzip python-pip xcompmgr \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts 
-sudo systemctl enable NetworkManager 
+systemctl enable NetworkManager 
+systemctl enable bluetooth 
+
 id="$(ls -al /dev/disk/by-uuid/ | awk '/nvme0n1$/ {print $9}')"
 sudo mkdir -p /mnt/nvme0n1
 echo "UUID="$id"	/mnt/nvme0n1	ext4	defaults	0	0" >> /etc/fstab
@@ -91,9 +93,7 @@ sudo mv $HOME/.local/90-corectrl.rules /etc/polkit-1/rules.d/90-corectrl.rules
 
 pulseaudio -D 
 
-pip install --break-system-packages gallery-dl
-
-yay -S cmusfm zsh-syntax-highlighting-git  downgrade
+yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git
 yay -Yc
 
 cd 
@@ -102,6 +102,7 @@ mkdir Downloads/ repos/
 
 sudo mount /dev/nvme0n1 /mnt/nvme0n1
 ln -s /mnt/nvme0n1 .
+ln -s /mnt/nvme0n1/archive .
 ln -s /mnt/nvme0n1/Music .
 ln -s /mnt/nvme0n1/Documents/ .  
 ln -s /mnt/nvme0n1/Pictures .
