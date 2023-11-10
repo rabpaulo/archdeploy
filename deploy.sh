@@ -39,7 +39,7 @@ pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager core
         btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer \
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar \
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
-        man zsh ueberzug lf sxiv upower newsboat tmux fzf android-file-transfer \
+        man zsh ueberzug nsxiv upower newsboat tmux fzf android-file-transfer \
         xorg xorg-xinit slock dmenu unzip python-pip xcompmgr \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts 
 systemctl enable NetworkManager 
@@ -69,10 +69,6 @@ cd
 git clone --separate-git-dir=$HOME/.dotfiles https://github.com/rabpaulo/dots temparq
 rsync --recursive --exclude '.git' temparq/ $HOME/
 
-git clone --separate-git-dir=$HOME/.lfrun https://github.com/thimc/lfimg.git lfrun
-cd $HOME/lfrun
-make install
-cd 
 
 git clone --depth=1 https://github.com/rabpaulo/suckless-stuff
 
@@ -97,7 +93,7 @@ yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git
 yay -Yc
 
 cd 
-rm -rf  yay/ .cache temparq/ .dotfiles/ arch_install3.sh .lfrun lfimg lfrun suckless-stuff
+rm -rf  yay/ .cache temparq/ .dotfiles/ arch_install3.sh  suckless-stuff
 mkdir Downloads/ repos/
 
 sudo mount /dev/nvme0n1 /mnt/nvme0n1
