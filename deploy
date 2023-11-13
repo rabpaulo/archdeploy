@@ -40,7 +40,7 @@ pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager core
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar keepassxc mpv \
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
         man zsh ueberzug nsxiv upower tmux fzf android-file-transfer \
-        xorg xorg-xinit slock dmenu unzip python-pip xcompmgr \
+        xorg xorg-xinit slock dmenu unzip python-pip xcompmgr tree \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts 
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
@@ -93,16 +93,22 @@ yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git
 yay -Yc
 
 cd 
-rm -rf  yay/ .cache temparq/ .dotfiles/ arch_install3.sh suckless-stuff
-mkdir Downloads/ repos/
+rm -rf  yay/ .cache temparq/ .dotfiles/ archinstall3.sh suckless-stuff .bash*
+
+mkdir dl/
 
 ssh-keygen -t ed25519 -C zemitoblz@gmail.com
-sudo mount /dev/nvme0n1 /mnt/nvme0n1
-ln -s /mnt/nvme0n1 .
-ln -s /mnt/nvme0n1/archive .
-ln -s /mnt/nvme0n1/Music .
-ln -s /mnt/nvme0n1/Documents/ .  
-ln -s /mnt/nvme0n1/Pictures .
 
-echo "Tudo finalizado!"
+sudo mount /dev/nvme0n1 /mnt/nvme0n1
+
+cp -r /mnt/nvme0n1/backup/.mozilla .
+cp -r /mnt/nvme0n1/backup/.ssh .
+cp -r /mnt/nvme0n1/backup/.thunderbird .
+cp -r /mnt/nvme0n1/backup/notes .
+
+ln -s /mnt/nvme0n1 .
+ln -s /mnt/nvme0n1/music .
+ln -s /mnt/nvme0n1/doc/ .  
+ln -s /mnt/nvme0n1/pix .
+
 exit
