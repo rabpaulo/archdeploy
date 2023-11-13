@@ -35,11 +35,11 @@ sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAU
 grub-mkconfig -o /boot/grub/grub.cfg
 
 
-pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl neovim firefox gimp keepassxc mpv \
-        btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer \
-        nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar \
+pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl  \
+        btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer neovim firefox gimp  \
+        nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar keepassxc mpv \
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
-        man zsh ueberzug nsxiv upower newsboat tmux fzf android-file-transfer \
+        man zsh ueberzug nsxiv upower tmux fzf android-file-transfer \
         xorg xorg-xinit slock dmenu unzip python-pip xcompmgr \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts 
 systemctl enable NetworkManager 
@@ -73,13 +73,13 @@ rsync --recursive --exclude '.git' temparq/ $HOME/
 git clone --depth=1 https://github.com/rabpaulo/suckless-stuff
 
 cd 'suckless-stuff/dwm/' 
-sudo make clean install
+sudo make install
 cd '../dwmblocks/'
-sudo make clean install
+sudo make install
 cd '../st/'
-sudo make clean install
+sudo make install
 cd '../dmenu/'
-sudo make clean install
+sudo make install
 cd 
 
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si cd $HOME
@@ -93,9 +93,10 @@ yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git
 yay -Yc
 
 cd 
-rm -rf  yay/ .cache temparq/ .dotfiles/ arch_install3.sh  suckless-stuff
+rm -rf  yay/ .cache temparq/ .dotfiles/ arch_install3.sh suckless-stuff
 mkdir Downloads/ repos/
 
+ssh-keygen -t ed25519 -C zemitoblz@gmail.com
 sudo mount /dev/nvme0n1 /mnt/nvme0n1
 ln -s /mnt/nvme0n1 .
 ln -s /mnt/nvme0n1/archive .
