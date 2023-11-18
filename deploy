@@ -1,3 +1,4 @@
+#!/bin/sh
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 10/" /etc/pacman.conf
 pacman --noconfirm -Sy archlinux-keyring
 pacman-key --init
@@ -66,11 +67,23 @@ exit
 
 #part3
 cd
-git clone --separate-git-dir=$HOME/.dotfiles https://github.com/rabpaulo/dots temparq
+sudo mount /dev/nvme0n1 /mnt/nvme0n1
+
+cp -r /mnt/nvme0n1/backup/.mozilla .
+cp -r /mnt/nvme0n1/backup/.ssh .
+cp -r /mnt/nvme0n1/backup/.thunderbird .
+
+ln -s /mnt/nvme0n1 .
+ln -s /mnt/nvme0n1/archive .
+ln -s /mnt/nvme0n1/music .
+ln -s /mnt/nvme0n1/doc/ .  
+ln -s /mnt/nvme0n1/pix .
+
+git clone --separate-git-dir=$HOME/.dotfiles git@github.com:rabpaulo/dots.git temparq
 rsync --recursive --exclude '.git' temparq/ $HOME/
 
 
-git clone --depth=1 https://github.com/rabpaulo/suckless-stuff
+git clone --depth=1 git@github.com:rabpaulo/suckless-stuff.git
 
 cd 'suckless-stuff/dwm/' 
 sudo make install
@@ -96,19 +109,5 @@ cd
 rm -rf  yay/ .cache temparq/ .dotfiles/ archinstall3.sh suckless-stuff .bash*
 
 mkdir dl/
-
-ssh-keygen -t ed25519 -C zemitoblz@gmail.com
-
-sudo mount /dev/nvme0n1 /mnt/nvme0n1
-
-cp -r /mnt/nvme0n1/backup/.mozilla .
-cp -r /mnt/nvme0n1/backup/.ssh .
-cp -r /mnt/nvme0n1/backup/.thunderbird .
-cp -r /mnt/nvme0n1/backup/notes .
-
-ln -s /mnt/nvme0n1 .
-ln -s /mnt/nvme0n1/music .
-ln -s /mnt/nvme0n1/doc/ .  
-ln -s /mnt/nvme0n1/pix .
 
 exit
