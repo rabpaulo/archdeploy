@@ -36,13 +36,13 @@ sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAU
 grub-mkconfig -o /boot/grub/grub.cfg
 
 
-pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl  \
-        btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer neovim firefox gimp  \
+pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl \
+        btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer neovim firefox gimp \
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar keepassxc mpv \
-        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
-        man zsh ueberzug nsxiv upower tmux fzf android-file-transfer \
-        xorg xorg-xinit slock dmenu unzip python-pip xcompmgr tree \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts 
+        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick texlive \
+        man zsh nsxiv upower tmux fzf android-file-transfer dunst numlockx \
+        xorg xorg-xinit slock dmenu unzip python-pip xcompmgr tree lf ueberzug \
+	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
 
@@ -102,7 +102,7 @@ sudo mv $HOME/.local/90-corectrl.rules /etc/polkit-1/rules.d/90-corectrl.rules
 
 pulseaudio -D 
 
-yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git
+yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git xkblayout-state-git
 yay -Yc
 
 cd 
