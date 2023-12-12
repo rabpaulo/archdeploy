@@ -40,7 +40,7 @@ pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager core
         btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer neovim firefox gimp \
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar keepassxc mpv \
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick texlive \
-        man zsh nsxiv upower tmux fzf android-file-transfer dunst numlockx \
+        man zsh nsxiv upower tmux fzf android-file-transfer dunst libreoffice \
         xorg xorg-xinit slock dmenu unzip python-pip xcompmgr tree lf ueberzug \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool
 systemctl enable NetworkManager 
