@@ -39,16 +39,18 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl \
         btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer neovim firefox gimp \
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar keepassxc mpv \
-        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick texlive \
-        man zsh nsxiv upower tmux fzf android-file-transfer dunst libreoffice \
-        xorg xorg-xinit slock dmenu unzip python-pip xcompmgr tree lf ueberzug \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool
+        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
+        man zsh nsxiv upower tmux fzf android-file-transfer dunst \
+        xorg xorg-xinit slock dmenu unzip python-pip tree lf ueberzug mediainfo \
+	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm nodejs aria2
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
 
 id="$(ls -al /dev/disk/by-uuid/ | awk '/nvme0n1$/ {print $9}')"
 sudo mkdir -p /mnt/nvme0n1
 echo "UUID="$id"	/mnt/nvme0n1	ext4	defaults	0	0" >> /etc/fstab
+sed 's/#Experimental = false/Experimental = true/g' /etc/bluetooth/main.conf
+sed 's/#KernelExperimental = false/KernelExperimental = true/g' /etc/bluetooth/main.conf
 
 clear
 echo "Senha root"
@@ -82,10 +84,7 @@ ln -s /mnt/nvme0n1/pix .
 git clone --separate-git-dir=$HOME/.dotfiles git@github.com:rabpaulo/dots.git temparq
 rsync --recursive --exclude '.git' temparq/ $HOME/
 
-
-git clone --depth=1 git@github.com:rabpaulo/suckless-stuff.git
-
-cd 'suckless-stuff/dwm/' 
+cd '/mnt/nvme0n1/repos/suckless-stuff/dwm/' 
 sudo make install
 cd '../dwmblocks/'
 sudo make install
@@ -94,6 +93,8 @@ sudo make install
 cd '../dmenu/'
 sudo make install
 cd 
+
+nvim -c 'CocInstall coc-json coc-tsserver' -c 'qa!' 
 
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si cd $HOME
 
