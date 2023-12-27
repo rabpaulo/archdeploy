@@ -35,14 +35,13 @@ sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="amdgpu.ppfeaturemask=0xffffffff loglevel=3 quiet"/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
-
-pacman --noconfirm -S bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl \
+pacman --noconfirm -Sy bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl \
         btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer neovim firefox gimp \
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar keepassxc mpv \
-        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
-        man zsh nsxiv upower tmux fzf android-file-transfer dunst \
+        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick bat \
+        man zsh nsxiv upower tmux fzf android-file-transfer dunst nodejs aria2 \
         xorg xorg-xinit slock dmenu unzip python-pip tree lf ueberzug mediainfo \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm nodejs aria2
+	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm 
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
 
@@ -75,10 +74,10 @@ cp -r /mnt/nvme0n1/backup/.mozilla .
 cp -r /mnt/nvme0n1/backup/.ssh .
 cp -r /mnt/nvme0n1/backup/.thunderbird .
 
-ln -s /mnt/nvme0n1 .
+ln -s /mnt/nvme0n1/archive/Kpop .
 ln -s /mnt/nvme0n1/archive .
 ln -s /mnt/nvme0n1/music .
-ln -s /mnt/nvme0n1/doc/ .  
+ln -s /mnt/nvme0n1/doc/ .
 ln -s /mnt/nvme0n1/pix .
 
 git clone --separate-git-dir=$HOME/.dotfiles git@github.com:rabpaulo/dots.git temparq
@@ -100,8 +99,6 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 
 sudo rm -f /etc/polkit-1/rules.d/90-corectrl.rules
 sudo mv $HOME/.local/90-corectrl.rules /etc/polkit-1/rules.d/90-corectrl.rules
-
-pulseaudio -D 
 
 yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git xkblayout-state-git
 yay -Yc
