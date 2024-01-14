@@ -38,16 +38,20 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman --noconfirm -Sy bluez bluez-utils pulseaudio-bluetooth networkmanager corectrl \
         btop qbittorrent git rsync yt-dlp bc ffmpegthumbnailer neovim firefox gimp \
         nicotine+ cmus neofetch zathura zathura-pdf-mupdf unrar keepassxc mpv \
-        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick bat \
+        pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
         man zsh nsxiv upower tmux fzf android-file-transfer dunst nodejs aria2 \
         xorg xorg-xinit slock dmenu unzip python-pip tree lf ueberzug mediainfo \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm 
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
 
-id="$(ls -al /dev/disk/by-uuid/ | awk '/nvme0n1$/ {print $9}')"
-sudo mkdir -p /mnt/nvme0n1
-echo "UUID="$id"	/mnt/nvme0n1	ext4	defaults	0	0" >> /etc/fstab
+read -p "add nvme to fstab [y/n]" answernvme
+if [ "$answernvme" = "y" ]; then
+	id="$(ls -al /dev/disk/by-uuid/ | awk '/nvme0n1$/ {print $9}')"
+	sudo mkdir -p /mnt/nvme0n1
+	echo "UUID="$id"	/mnt/nvme0n1	ext4	defaults	0	0" >> /etc/fstab
+fi
+
 sed 's/#Experimental = false/Experimental = true/g' /etc/bluetooth/main.conf
 sed 's/#KernelExperimental = false/KernelExperimental = true/g' /etc/bluetooth/main.conf
 
@@ -76,6 +80,7 @@ cp -r /mnt/nvme0n1/backup/.thunderbird .
 
 ln -s /mnt/nvme0n1/archive/Kpop .
 ln -s /mnt/nvme0n1/archive .
+ln -s /mnt/nvme0n1/dl .
 ln -s /mnt/nvme0n1/music .
 ln -s /mnt/nvme0n1/doc/ .
 ln -s /mnt/nvme0n1/pix .
@@ -83,7 +88,8 @@ ln -s /mnt/nvme0n1/pix .
 git clone --separate-git-dir=$HOME/.dotfiles git@github.com:rabpaulo/dots.git temparq
 rsync --recursive --exclude '.git' temparq/ $HOME/
 
-cd '/mnt/nvme0n1/repos/suckless-stuff/dwm/' 
+git clone https://github.com/rabpaulo/suckless-stuff.git
+cd 'suckless-stuff/dwm/' 
 sudo make install
 cd '../dwmblocks/'
 sudo make install
@@ -93,19 +99,20 @@ cd '../dmenu/'
 sudo make install
 cd 
 
-nvim -c 'CocInstall coc-json coc-tsserver' -c 'qa!' 
+nvim -c 'PlugInstall' 
+nvim -c 'CocInstall coc-json coc-tsserver'
 
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si cd $HOME
 
 sudo rm -f /etc/polkit-1/rules.d/90-corectrl.rules
 sudo mv $HOME/.local/90-corectrl.rules /etc/polkit-1/rules.d/90-corectrl.rules
 
-yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git xkblayout-state-git
+yay -S cmusfm zsh-syntax-highlighting-git downgrade gallery-dl-git
 yay -Yc
 
 cd 
-rm -rf  yay/ .cache temparq/ .dotfiles/ archinstall3.sh suckless-stuff .bash*
+rm -rf  yay/ .cache temparq/ .dotfiles/ archinstall3.sh suckless-stuff .bash* suckless-stuff
 
-mkdir dl/
+mkdir venv/
 
 exit
