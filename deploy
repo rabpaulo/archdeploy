@@ -41,16 +41,17 @@ pacman --noconfirm -Sy bluez bluez-utils pulseaudio-bluetooth networkmanager cor
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
         man zsh nsxiv upower tmux fzf android-file-transfer dunst nodejs aria2 \
         xorg xorg-xinit slock dmenu unzip python-pip tree lf ueberzug mediainfo \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm 
+	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm jq parallel
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
 
-read -p "add nvme to fstab [y/n]" answernvme
-if [ "$answernvme" = "y" ]; then
-	id="$(ls -al /dev/disk/by-uuid/ | awk '/nvme0n1$/ {print $9}')"
-	sudo mkdir -p /mnt/nvme0n1
-	echo "UUID="$id"	/mnt/nvme0n1	ext4	defaults	0	0" >> /etc/fstab
-fi
+id="$(ls -al /dev/disk/by-uuid/ | awk '/nvme0n1$/ {print $9}')"
+sudo mkdir -p /mnt/nvme0n1
+echo "UUID="$id"	/mnt/nvme0n1	ext4	defaults	0	0" >> /etc/fstab
+
+idhd=$(ls -al /dev/disk/by-uuid/ | awk '/sdb1$/ {print $9}')
+sudo mkdir -p /mnt/hd3tb
+echo "UUID="$idhd"	/mnt/hd3tb	ext4	defaults	0	0" >> /etc/fstab
 
 sed 's/#Experimental = false/Experimental = true/g' /etc/bluetooth/main.conf
 sed 's/#KernelExperimental = false/KernelExperimental = true/g' /etc/bluetooth/main.conf
@@ -73,13 +74,13 @@ exit
 #part3
 cd
 sudo mount /dev/nvme0n1 /mnt/nvme0n1
+sudo mount /dev/sdb1 /mnt/hd3tb
 
 cp -r /mnt/nvme0n1/backup/.mozilla .
 cp -r /mnt/nvme0n1/backup/.ssh .
 cp -r /mnt/nvme0n1/backup/.thunderbird .
 
-ln -s /mnt/nvme0n1/archive/Kpop .
-ln -s /mnt/nvme0n1/archive .
+ln -s /mnt/hd3tb .
 ln -s /mnt/nvme0n1/dl .
 ln -s /mnt/nvme0n1/music .
 ln -s /mnt/nvme0n1/doc/ .
