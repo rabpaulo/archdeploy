@@ -41,7 +41,7 @@ pacman --noconfirm -Sy bluez bluez-utils pulseaudio-bluetooth networkmanager cor
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
         man zsh nsxiv upower tmux fzf android-file-transfer dunst nodejs aria2 \
         xorg xorg-xinit slock dmenu unzip python-pip tree lf ueberzug mediainfo \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm jq parallel 7zip zsh-syntax-highlighting zsh-autosuggestions
+	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm jq parallel p7zip zsh-syntax-highlighting zsh-autosuggestions
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
 
