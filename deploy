@@ -41,7 +41,7 @@ pacman --noconfirm -Sy bluez bluez-utils pulseaudio-bluetooth networkmanager cor
         pulseaudio pulsemixer polkit xclip xwallpaper ufw imagemagick \
         man zsh nsxiv upower tmux fzf android-file-transfer dunst nodejs aria2 \
         xorg xorg-xinit slock dmenu unzip python-pip tree lf ueberzug mediainfo \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm jq parallel p7zip zsh-syntax-highlighting zsh-autosuggestions pass
+	noto-fonts-cjk noto-fonts-emoji noto-fonts perl-image-exiftool npm jq parallel p7zip zsh-syntax-highlighting zsh-autosuggestions pass libreoffice
 systemctl enable NetworkManager 
 systemctl enable bluetooth 
 
@@ -82,7 +82,7 @@ cp -r /mnt/nvme0n1/backup/.thunderbird .
 
 ln -s /mnt/hd3tb .
 ln -s /mnt/nvme0n1/dl .
-ln -s /mnt/nvme0n1/music .
+ln -s /mnt/hd3tb/music .
 ln -s /mnt/nvme0n1/doc/ .
 ln -s /mnt/nvme0n1/pix .
 
@@ -101,14 +101,14 @@ sudo make install
 cd 
 
 nvim -c 'PlugInstall' 
-nvim -c 'CocInstall coc-json coc-python coc-java'
+nvim -c 'CocInstall coc-python coc-java coc-tsserver'
 
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si cd $HOME
 
 sudo rm -f /etc/polkit-1/rules.d/90-corectrl.rules
 sudo mv $HOME/.local/90-corectrl.rules /etc/polkit-1/rules.d/90-corectrl.rules
 
-yay -S cmusfm  downgrade gallery-dl-git vscodium-bin
+yay -S cmusfm downgrade gallery-dl-git
 yay -Yc
 
 cd 
